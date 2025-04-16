@@ -9,10 +9,15 @@ datasource db {
 
 model User {
   id         String      @id @default(uuid())
-  name       String
+  name       String?
   email      String      @unique
   investments Investment[]
   createdAt  DateTime    @default(now())
+  github     String?
+  birthDate  DateTime?
+  avatar     String?
+  updatedAt  DateTime    @updatedAt
+
 }
 
 model Investment {
