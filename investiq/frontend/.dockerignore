@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.*
+
+# Editor/IDE
+.vscode
+.DS_Store
+
+# Cache/lock de pacotes
+package-lock.json
