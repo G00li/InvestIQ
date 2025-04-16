@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+prisma
+crewai
+exa-py
+python-dotenv
+pydantic
+sqlalchemy
+asyncpg
+psycopg2-binary
+celery
+redis
+python-dotenv
+pytest
