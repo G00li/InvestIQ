@@ -12,6 +12,14 @@ up: ## Run the project
 down: ## Down the project 
 	docker compose down -v
 
+down_clean: ## Down the project and remove the volumes
+	docker-compose down --volumes --remove-orphans
+
+
+clean_build: ## Clean the build cache
+	docker builder prune
+
+
 poetry_clear: ## Clear the poetry cache
 	rm poetry.lock
 	poetry cache clear . --all

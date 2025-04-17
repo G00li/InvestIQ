@@ -8,12 +8,20 @@ services:
     container_name: investiq_backend
     ports:
       - "8000:8000"
+      - "11434:11434"
     volumes:
       - ./backend:/app
+      - ollama_data:/root/.ollama
     env_file:
       - ./backend/.env
     depends_on:
       - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   frontend:
     build:
@@ -32,3 +40,6 @@ services:
     container_name: investiq_redis
     ports:
       - "6379:6379"
+
+volumes:
+  ollama_data:
