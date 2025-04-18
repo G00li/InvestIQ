@@ -7,7 +7,10 @@ setup: ## Setup the project
 	poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 up: ## Run the project
-	docker compose up --build 
+	docker compose up --build
+
+restart_backend: ## Restart the backend 
+	docker-compose restart backend
 
 down: ## Down the project 
 	docker compose down -v
@@ -27,4 +30,14 @@ poetry_clear: ## Clear the poetry cache
 
 
 library:
-	pip install exa-py openai python-dotenv 
+	pip install exa-py openai python-dotenv
+
+tree: ## Show the tree of the project
+	tree -I node_modules
+
+
+--------------------------------
+
+status_ollama:
+	curl -X GET "http://localhost:8000/api/ollama-status"
+status_

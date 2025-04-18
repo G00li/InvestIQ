@@ -2,10 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Dependências do sistema incluindo Ollama
+# Dependências do sistema
 RUN apt-get update && \
-    apt-get install -y gcc libffi-dev libpq-dev curl && \
-    curl -fsSL https://ollama.com/install.sh | sh && \
+    apt-get install -y gcc libffi-dev libpq-dev curl netcat-traditional && \
     rm -rf /var/lib/apt/lists/*
 
 # Instala as dependências Python
@@ -18,15 +17,11 @@ COPY . .
 # Adiciona o diretório app ao PYTHONPATH
 ENV PYTHONPATH=/app
 
-# Expor as portas do FastAPI e Ollama
-EXPOSE 8000 11434
+# Expor a porta do FastAPI
+EXPOSE 8000
 
-# Script de inicialização para rodar tanto o Ollama quanto o FastAPI
-RUN echo '#!/bin/bash\n\
-ollama serve &\n\
-sleep 5\n\
-ollama pull orca-mini\n\
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload' > /start.sh && \
-    chmod +x /start.sh
+# Script de inicialização para rodar o FastAPI e o Celery worker
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 CMD ["/start.sh"]
